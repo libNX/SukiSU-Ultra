@@ -585,7 +585,7 @@ pub fn get_size(id: &str) -> Result<()> {
     let mut size: u64 = 0;
 
     for entry in WalkDir::new(module_path) {
-        let entry = entry.with_context(|| format!("Module {id} not found"))?;
+        let entry = entry?;
 
         if !entry.file_type().is_dir() {
             continue;
@@ -597,7 +597,7 @@ pub fn get_size(id: &str) -> Result<()> {
             .len();
     }
 
-    println!("size: {size}b");
+    println!("size: {size} bytes");
     Ok(())
 }
 
